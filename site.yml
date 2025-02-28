@@ -1,8 +1,5 @@
 - hosts: servers
-- name: ncdu_is_installed
-  apt:
-    name: ncdu
-    state: present
-    update_cache: true
-  become: true
+  gather_facts: false
+  tasks:
+    - ping:
 
