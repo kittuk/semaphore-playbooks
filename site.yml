@@ -1,5 +1,5 @@
 - hosts: servers
-- name: ensure ncdu is installed
+- name: ncdu_is_installed
   apt:
     name: ncdu
     state: present
