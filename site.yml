@@ -1,5 +1,8 @@
----
-- hosts: ub
+- hosts: servers
+- name: ensure ncdu is installed
+  apt:
+    name: ncdu
+    state: present
+    update_cache: true
   become: true
-  tasks:
-    - name: Print OS info
+
