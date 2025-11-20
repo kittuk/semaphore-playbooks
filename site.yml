@@ -1,7 +1,9 @@
 ---
-- hosts: my_servers
-  become: true
+- hosts: ubs
+  gather_facts: False
   tasks:
-    - name: Print OS info
-      ansible.builtin.package:
-        name: apache2
+    - name: Check Dist Version
+      shell: cat /etc/os-release
+      register: response
+
+    - debug: msg="{{ response.stdout }}"
