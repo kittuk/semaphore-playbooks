@@ -1,5 +1,5 @@
 ---
-- hosts: ubs
+- hosts: docker_servers
   gather_facts: False
   tasks:
     - name: Check Dist Version
