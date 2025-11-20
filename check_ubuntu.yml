@@ -1,0 +1,31 @@
+---
+- name: Gather OS and Version on Docker Servers
+  hosts: docker_servers
+  gather_facts: yes
+
+  tasks:
+    - name: Show OS and Version
+      debug:
+        msg: "OS: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+    - name: Get list of available updates
+      apt:
+        update_cache: yes
+        upgrade: 'no'
+      register: apt_update_result
+
+    - name: List available updates
+      shell: apt list --upgradable
+      register: upgradable_packages
+      changed_when: false
+
+    - name: Show available updates
+      debug:
+        msg: "{{ upgradable_packages.stdout_lines }}"
+      when: upgradable_packages.stdout_lines | length > 0
+      failed_when: false
+      ignore_errors: yes
+    - name: Notify if no updates are available
+      debug:
+        msg: "No updates are available."
+      when: upgradable_packages.stdout_lines | length == 0 
