@@ -31,3 +31,20 @@
       debug:
         msg: "No updates are available."
       when: upgradable_packages.stdout_lines | length == 0
+
+    - name: Docker pull latest images for running containers
+      docker_compose:
+        project_src: $HOME/docker/docker-compose-$HOSTNAME.yml
+        pull: yes
+      when: ansible_distribution == "Ubuntu"
+
+      - name: Notify Docker images updated
+        debug:
+          msg: "Docker images have been pulled and updated."
+        when: ansible_distribution == "Ubuntu"
+
+      - name: Docker running containers start/restart
+       docker_compose:
+         project_src: $HOME/docker/docker-compose-$HOSTNAME.yml
+         restarted: yes
+       when: ansible_distribution == "Ubuntu"
