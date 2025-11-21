@@ -33,9 +33,9 @@
       when: upgradable_packages.stdout_lines | length == 0
 
     - name: Docker pull latest images for running containers
-      docker_compose:
-        project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
-        pull: yes
+      community.docker.docker_compose_v2:
+      project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
+      pull: true
 
     - name: Notify Docker images updated
       debug:
@@ -43,7 +43,7 @@
       when: ansible_distribution == "Ubuntu"
 
     - name: Restart Docker containers with latest images
-      docker_compose:
-        project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
-        restarted: yes
+      community.docker.docker_compose_v2:
+      project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
+      restarted: yes
       when: ansible_distribution == "Ubuntu"
