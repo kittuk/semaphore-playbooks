@@ -37,13 +37,13 @@
         project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
         pull: yes
 
-        - name: Notify Docker images updated
-          debug:
-            msg: "Docker images have been pulled and updated."
-          when: ansible_distribution == "Ubuntu"
+    - name: Notify Docker images updated
+      debug:
+        msg: "Docker images have been pulled and updated."
+      when: ansible_distribution == "Ubuntu"
 
-        - name: Restart Docker containers with latest images
-          docker_compose:
-            project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
-            restarted: yes
-          when: ansible_distribution == "Ubuntu"
+    - name: Restart Docker containers with latest images
+      docker_compose:
+        project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
+        restarted: yes
+      when: ansible_distribution == "Ubuntu"
