@@ -34,7 +34,8 @@
 
     - name: Docker pull latest images for running containers
       community.docker.docker_compose_v2:
-        project_src: "/home/ktowning/docker/docker-compose-{{ ansible_hostname }}.yml"
+        project_src: "/home/ktowning/docker/"
+        files: "docker-compose-{{ ansible_hostname }}.yml"
         pull: always
 
     - name: Notify Docker images updated
@@ -44,6 +45,7 @@
 
     - name: Restart Docker containers with latest images
       community.docker.docker_compose_v2:
-        project_src: "/home/ktowning/docker/docker-compose-{{ ansible_hostname }}.yml"
+        project_src: "/home/ktowning/docker/"
+        files: "docker-compose-{{ ansible_hostname }}.yml"
         recreate: always
       when: ansible_distribution == "Ubuntu"
