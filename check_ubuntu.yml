@@ -28,4 +28,4 @@
     - name: Notify if no updates are available
       debug:
         msg: "No updates are available."
-      when: upgradable_packages.stdout_lines | length == 0 
+      when: upgradable_packages.stdout_lines | length == 0
