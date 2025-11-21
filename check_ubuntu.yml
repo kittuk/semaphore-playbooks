@@ -1,6 +1,8 @@
 ---
 - name: Gather OS and Version on Docker Servers
   hosts: docker_servers
+  become: true
+  become_user: root
   gather_facts: yes
 
   tasks:
