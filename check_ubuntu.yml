@@ -34,8 +34,8 @@
 
     - name: Docker pull latest images for running containers
       community.docker.docker_compose_v2:
-      project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
-      pull: true
+        project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
+        pull: true
 
     - name: Notify Docker images updated
       debug:
@@ -44,6 +44,6 @@
 
     - name: Restart Docker containers with latest images
       community.docker.docker_compose_v2:
-      project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
-      restarted: yes
+        project_src: "{{ lookup('env', 'HOME') }}/docker/docker-compose-{{ inventory_hostname }}.yml"
+        recreate: always
       when: ansible_distribution == "Ubuntu"
